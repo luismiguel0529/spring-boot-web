@@ -7,7 +7,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class IndexController {
     }
 
     @GetMapping("/perfil")
-    public String perfil(ModelMap model){
+    public String perfil(ModelMap model) {
         Usuario usuario = new Usuario();
         usuario.setNombre("Miguel");
         usuario.setApellido("Rodriguez");
@@ -41,14 +40,14 @@ public class IndexController {
     }
 
     @GetMapping("/listar")
-    public String listar(ModelMap model){
+    public String listar(ModelMap model) {
         model.addAttribute("titulo", textoListar);
         return "listar";
     }
 
     //disponible para todos los metodos o todo el controllador
     @ModelAttribute("usuarios")
-    public List<Usuario> usuarioList(){
+    public List<Usuario> usuarioList() {
         List<Usuario> usuarios = new ArrayList<>();
         usuarios.add(new Usuario().setNombre("Miguel").setApellido("Rodriguez").setEmail("miguel@mail.com"));
         usuarios.add(new Usuario().setNombre("Luis").setApellido("Herrera").setEmail("luis@mail.com"));

@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/params")
 public class ParamsController {
 
-    @GetMapping({"/",""})
-    public String index(){
+    @GetMapping({"/", ""})
+    public String index() {
         return "params/index";
     }
 
@@ -37,7 +37,7 @@ public class ParamsController {
         Integer numero = null;
         try {
             numero = Integer.parseInt(request.getParameter("numero"));
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             numero = 0;
         }
 
