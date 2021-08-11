@@ -1,5 +1,6 @@
 package com.springboot.springbooterror.app.controller;
 
+import com.springboot.springbooterror.app.errors.UsuarioNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -27,6 +28,14 @@ public class ErrorHandlerController {
         model.addAttribute("error","Error de formato numero");
         model.addAttribute("message",ex.getMessage());
         model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        model.addAttribute("timestamp", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        return "error/generica";
+    }
+
+    @ExceptionHandler(UsuarioNotFoundException.class)
+    public String userNotFound(UsuarioNotFoundException ex, Model model){
+        model.addAttribute("error","Usuario con ID: " .concat(ex.getMessage()).concat(" no existe en el sistema"));
+        model.addAttribute("status", HttpStatus.NOT_FOUND.value());
         model.addAttribute("timestamp", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         return "error/generica";
     }
