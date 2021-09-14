@@ -17,21 +17,23 @@ public class Client implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
     @NotEmpty
+    @Column(name = "name")
     private String name;
 
+    @NotEmpty
     @Column(name = "last_name")
     private String lastName;
 
+    @NotEmpty
     @Column(name = "email")
     @Email
     private String email;
 
-    @Column(name = "create_at ")
+    @NotNull
+    @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
-    @NotNull
     private Date createAt;
 
     public Long getId() {

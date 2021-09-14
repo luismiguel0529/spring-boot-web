@@ -24,11 +24,15 @@
             </ul>
         </div>
     </div>
-</nav>
 
+</nav>
+<div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
+<div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
+<div class="alert alert-warning" th:if="${warning != null}" th:text="${warning}"></div>
+<div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
 <div class="container">
 <h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0" th:text="${title}"></h1>
-    <a th:href="@{/form}">Create Client</a>
+  <p>  <a th:href="@{/form}" class="btn btn-success btn-xs">Create Client</a></p>
 <table class="table table-striped ">
     <thead>
     <tr>
@@ -37,6 +41,8 @@
         <th>Last name</th>
         <th>Email</th>
         <th>Date</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -46,6 +52,8 @@
         <td th:text="${client.lastName}"></td>
         <td th:text="${client.email}"></td>
         <td th:text="${client.createAt}"></td>
+        <td><a class="btn btn-primary btn-xs" th:href="@{/form/} + ${client.id}" th:text="'Edit'"></a></td>
+        <td><a class="btn btn-danger btn-xs" th:href="@{/delete/} + ${client.id}" th:text="'Delete'" onclick="return confirm('Are you sure?')"></a></td>
     </tr>
     </tbody>
 </table>
