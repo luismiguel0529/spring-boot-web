@@ -1,6 +1,11 @@
 package com.springbookbackendapirest.models;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,8 +16,18 @@ public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotEmpty(message = "no puede ser vacio")
+    @Size(min = 4 , max = 12 , message = "no puede ser menor a 4 ni mayor a 12")
+    @Column(nullable = true)
     private String nombre;
+
+    @NotEmpty(message = "no puede ser vacio")
     private String apellido;
+
+    @NotEmpty(message = "no puede ser vacio")
+    @Email(message = "no tiene un formato valido")
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(name = "create_at")
