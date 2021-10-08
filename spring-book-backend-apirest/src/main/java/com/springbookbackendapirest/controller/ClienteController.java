@@ -5,8 +5,11 @@ import com.springbookbackendapirest.service.IClienteService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,10 +53,18 @@ public class ClienteController {
 
     @PostMapping("/clientes")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> saveCliente(@RequestBody Cliente cliente){
+    public ResponseEntity<?> saveCliente(@Valid @RequestBody Cliente cliente, BindingResult result){
 
         Cliente clienteNew = null;
         Map<String, Object> response = new HashMap<>();
+
+        if (result.hasErrors()){
+            List<String> errors = new ArrayList<>();
+            result.getFieldErrors().forEach(fieldError -> errors.add("El campo " + fieldError.getField() + " " + fieldError.getDefaultMessage()));
+            response.put("errors",errors);
+            errors.forEach(System.out::println);
+            return new ResponseEntity<Map<String, Object>>( response, HttpStatus.BAD_REQUEST);
+        }
         try {
             clienteNew = iClienteService.save(cliente);
         } catch (DataAccessException e){
